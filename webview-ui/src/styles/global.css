@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* ── Blink animation for streaming cursor ─────────── */
+@theme {
+  --animate-blink: blink 0.9s step-end infinite;
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+}
+
+/* ── VSCode theme tokens ──────────────────────────── */
+@theme inline {
+  --color-vs-bg:               var(--vscode-sideBar-background, var(--vscode-editor-background));
+  --color-vs-fg:               var(--vscode-sideBar-foreground, var(--vscode-editor-foreground));
+  --color-vs-border:           var(--vscode-sideBarSectionHeader-border, var(--vscode-panel-border));
+  --color-vs-input-bg:         var(--vscode-input-background);
+  --color-vs-input-fg:         var(--vscode-input-foreground);
+  --color-vs-input-border:     var(--vscode-input-border, transparent);
+  --color-vs-placeholder:      var(--vscode-input-placeholderForeground);
+  --color-vs-btn:              var(--vscode-button-background);
+  --color-vs-btn-fg:           var(--vscode-button-foreground);
+  --color-vs-btn-hover:        var(--vscode-button-hoverBackground);
+  --color-vs-btn-secondary:    var(--vscode-button-secondaryBackground);
+  --color-vs-btn-secondary-fg: var(--vscode-button-secondaryForeground);
+  --color-vs-focus:            var(--vscode-focusBorder);
+  --color-vs-description:      var(--vscode-descriptionForeground);
+  --color-vs-error:            var(--vscode-errorForeground);
+  --color-vs-link:             var(--vscode-textLink-foreground);
+  --color-vs-code-bg:          var(--vscode-textCodeBlock-background);
+  --color-vs-user-msg:         var(--vscode-inputValidation-infoBackground, rgba(0, 120, 215, 0.1));
+  --color-vs-assistant-msg:    var(--vscode-editor-inactiveSelectionBackground, transparent);
+  --color-vs-scrollbar:        var(--vscode-scrollbarSlider-background);
+  --color-vs-scrollbar-hover:  var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+/* ── Base styles ──────────────────────────────────── */
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: var(--vscode-font-family, system-ui, sans-serif);
+    font-size: var(--vscode-font-size, 13px);
+    color: var(--color-vs-fg);
+    background-color: var(--color-vs-bg);
+  }
+
+  /* Form elements inherit VSCode font */
+  input,
+  textarea,
+  button,
+  select {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  /* VSCode-style slim scrollbar */
+  ::-webkit-scrollbar              { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-thumb        { background: var(--color-vs-scrollbar); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover  { background: var(--color-vs-scrollbar-hover); }
+  ::-webkit-scrollbar-track        { background: transparent; }
+}

@@ -1,0 +1,92 @@
+{
+	"name": "stratum",
+	"displayName": "Stratum",
+	"description": "AI-powered VSCode extension template",
+	"version": "0.0.1",
+	"publisher": "stratum",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Kosha-Nirman/stratum"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./dist/extension.js",
+	"packageManager": "npm@11.12.1",
+	"engines": {
+		"vscode": "^1.85.0",
+		"node": ">=22"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"command": "stratum.openPanel",
+				"title": "Stratum: Open Panel",
+				"icon": "$(layout-panel)"
+			},
+			{
+				"command": "stratum.helloWorld",
+				"title": "Stratum: Hello World"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "stratum-sidebar",
+					"title": "Stratum",
+					"icon": "assets/icon.svg"
+				}
+			]
+		},
+		"views": {
+			"stratum-sidebar": [
+				{
+					"id": "stratum.sidebarView",
+					"name": "Stratum",
+					"type": "webview"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"install:all": "npm install && cd webview-ui && npm install",
+		"build": "npm run build:webview && npm run build:extension",
+		"build:extension": "node esbuild.config.mjs",
+		"build:webview": "cd webview-ui && npm run build",
+		"watch": "concurrently \"npm run watch:extension\" \"npm run watch:webview\"",
+		"watch:extension": "node esbuild.config.mjs --watch",
+		"watch:webview": "cd webview-ui && npm run dev",
+		"package": "vsce package",
+		"test": "vitest run",
+		"typecheck": "tsc --noEmit",
+		"typecheck:webview": "tsc -p tsconfig.webview.json --noEmit",
+		"lint": "biome lint src webview-ui/src",
+		"lint:fix": "biome lint --write src webview-ui/src",
+		"format": "biome format --write .",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"prepare": "husky"
+	},
+	"lint-staged": {
+		"*.{js,ts,tsx,json}": [
+			"biome check --write --no-errors-on-unmatched"
+		]
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.10",
+		"@commitlint/cli": "^20.5.0",
+		"@commitlint/config-conventional": "^20.5.0",
+		"@types/node": "^25.5.0",
+		"@types/vscode": "^1.110.0",
+		"@vscode/test-electron": "^2.5.2",
+		"concurrently": "^9.2.1",
+		"esbuild": "^0.28.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.4.0",
+		"typescript": "^6.0.2",
+		"vitest": "^4.1.2"
+	}
+}
